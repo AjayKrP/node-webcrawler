@@ -1,18 +1,19 @@
-const router = require('express').Router();
-const seedService = require('../services/seed.service');
+const router = require("express").Router();
+const seedService = require("../services/seed.service");
 
-router.post('/seed', async (req, res) => {
-    try {
-        const { url } = req.body;
-        if (!url) {
-            return res.status(400).json({ error: 'URL is required' });
-        }
-        const result = await seedService.addSeed(url);
-        res.status(201).json(result);
-    } catch (error) {
-        console.error('Error adding seed:', error);
-        res.status(500).json({ error: 'Internal Server Error' });
+// POST /api/v1/seed
+router.post("/seed", async (req, res) => {
+  try {
+    const { url } = req.body;
+    if (!url) {
+      return res.status(400).json({ error: "URL is required" });
     }
+    const result = await seedService.addSeed(url);
+    res.status(200).json(result);
+  } catch (error) {
+    console.error("Error adding seed:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 module.exports = router;
